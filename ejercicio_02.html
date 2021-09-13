@@ -1,0 +1,72 @@
+<!-- 
+  Completar la función "rotarTrazar" para lograr girar sobre su respectivo centro:
+  con el botón "Girar Rectangulo 1" el primer rectangulo hacia la izquierda 45°
+  con el botón "Girar Rectangulo 2" el segundo rectangulo hacia la derecha 60°
+-->
+
+<div>
+  <button onclick="draw()">Trazar</button>
+  <button onclick="rotarTrazar(1)">Girar Rectangulo 1</button>
+  <button onclick="rotarTrazar(2)">Girar Rectangulo 2</button>
+  
+</div>
+
+<canvas id='canvas' height=400/>
+<script type="text/javascript">
+var ctx = document.getElementById('canvas').getContext('2d');
+
+function deg2rad(g){
+ return  (Math.PI / 180) * g;
+
+}
+
+function rect(x, y, w, h, c){
+
+  ctx.fillStyle = c;
+  ctx.fillRect(x, y, w, h);
+}
+
+function rotarCuadrado(x, y, w, h, g){
+	x1= x + (0.5 * w);
+	y1= y + (0.5 * h);
+	ctx.translate(x1, y1);
+	ctx.rotate(deg2rad(g));
+	ctx.translate(-x1, -y1);
+}
+
+function rotarTrazar(n){
+  if(n==1){
+  	ctx.save();
+	//rectangulo blanco 
+	rect(30, 30, 100, 100, '#FFFFFF' );
+	// traslacion 
+	rotarCuadrado(30, 30, 100, 100,-45);
+	//rectanguo azul rotado
+	rect(30, 30, 100, 100, '#0095DD' );
+	ctx.restore();
+  }else 
+	if(n==2){
+  	ctx.save();
+	//rectangulo blanco 
+	rect(150, 30, 100, 100, '#FFFFFF' );
+	// traslacion 
+	rotarCuadrado(150, 30, 100, 100, 60);
+	//rectanguo azul rotado
+  	rect(150, 30, 100, 100, '#0095DD' );
+	ctx.restore();
+  }
+}
+
+function draw() {
+ ctx.save();
+  //reiniciar todo
+    rect(0, 0, 300, 400, '#FFFFFF' );
+  // first blue rect
+  rect(30, 30, 100, 100, '#0095DD' );  
+  // second draw blue rect 
+  rect(150, 30, 100, 100, '#0095DD' );
+  ctx.restore();
+}
+
+
+</script>
